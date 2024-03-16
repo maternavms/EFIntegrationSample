@@ -37,6 +37,7 @@ namespace TestEfMultipleSqlVersions.ArcContext
 
         public IQueryable<T> EntitySet<T>() where T : class
         {
+            this.Database.SetConnectionString(ConnectionString);
             return Set<T>();
         }
 
@@ -66,10 +67,11 @@ namespace TestEfMultipleSqlVersions.ArcContext
             modelBuilder.UseVersionSpecificModel(version);
         }
 
+
         override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(ConnectionString, options =>
+                .UseSqlServer(options =>
                 {
                     options.EnableRetryOnFailure(3);
                 })

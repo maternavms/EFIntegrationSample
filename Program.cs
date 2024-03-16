@@ -27,13 +27,15 @@ namespace TestEfMultipleSqlVersions
 
             var context1 = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IArcAgentDbContext>().Instance(".");
             var context2 = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IArcAgentDbContext>().Instance(".\\Sql_2014");
+            var context3 = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IArcAgentDbContext>().Instance(".\\Sql_2014");
 
             var sql2022 = context1.EntitySet<AllViews>().First();
             var sql2014 = context2.EntitySet<AllViews>().First();
+            var sql2022_2 = context1.EntitySet<AllViews>().First();
 
             Console.WriteLine($"Sql2022 column name = {sql2022.Name} Type = {sql2022.Type}");
             Console.WriteLine($"Sql2014 column name = {sql2014.Name} Type = {sql2014.Type}");
-        }
+         }
 
         //static void Main(string[] args)
         //{
