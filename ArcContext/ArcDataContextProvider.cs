@@ -17,7 +17,9 @@ namespace TestEfMultipleSqlVersions.ArcContext
         }
         public IArcAgentDbContext GetContext(string instanceName)
         {
-            return serviceProvider.GetRequiredService<IArcAgentDbContext>();
+            return serviceProvider
+                .GetRequiredService<IArcAgentDbContext>()
+                .Instance(instanceName);
         }
     }
 }

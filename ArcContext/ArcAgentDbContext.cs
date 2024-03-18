@@ -16,8 +16,8 @@ namespace TestEfMultipleSqlVersions.ArcContext
     /// </summary>
     public class ArcAgentDbContext : DbContext, IArcAgentDbContext
     {
-        public ArcAgentDbContext(DbContextOptions<ArcAgentDbContext> options): base(options)
-        {            
+        public ArcAgentDbContext(DbContextOptions<ArcAgentDbContext> options) : base(options)
+        {
         }
         /// <summary>
         /// Specify the instance name to connect to.
@@ -30,7 +30,7 @@ namespace TestEfMultipleSqlVersions.ArcContext
             ConnectionString = $"Server={instanceName};Database=master;Trusted_Connection=True;Trust Server Certificate=True;";
             return this;
         }
-                
+
         public string? ConnectionString { get; private set; }
 
         public string? InstanceName { get; private set; }
@@ -66,7 +66,6 @@ namespace TestEfMultipleSqlVersions.ArcContext
             // do the model building here
             modelBuilder.UseVersionSpecificModel(version);
         }
-
 
         override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

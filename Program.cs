@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using TestEfMultipleSqlVersions.ArcContext;
 using TestEfMultipleSqlVersions.ArcEntities;
 using TestEfMultipleSqlVersions.DbCtx;
+using TestEfMultipleSqlVersions.Extensions;
 
 namespace TestEfMultipleSqlVersions
 {
@@ -18,10 +20,7 @@ namespace TestEfMultipleSqlVersions
                 opts.ExpirationScanFrequency = System.TimeSpan.FromMinutes(1);
             });
 
-            services.AddDbContext<IArcAgentDbContext, ArcAgentDbContext>(options =>
-            {
-                options.ReplaceService<IModelCacheKeyFactory, ArcModelCacheKeyFactory>();
-            });
+            services.UseEntityFramework();
 
             var serviceProvider = services.BuildServiceProvider();
 

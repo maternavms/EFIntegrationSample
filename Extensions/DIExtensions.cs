@@ -1,18 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TestEfMultipleSqlVersions.ArcContext;
 using TestEfMultipleSqlVersions.Attributes;
 
 namespace TestEfMultipleSqlVersions.Extensions
 {
     public static class DIExtensions
     {
+        public static IServiceCollection UseEntityFramework(this IServiceCollection services)
+        {
+            services.AddDbContext<IArcAgentDbContext, ArcAgentDbContext>(options =>
+            {
+                options.ReplaceService<IModelCacheKeyFactory, ArcModelCacheKeyFactory>();
+            }, ServiceLifetime.Transient);
+
+            return services;
+        }
+
         public static ModelBuilder UseVersionSpecificModel(this ModelBuilder builder, Version sqlVersion)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().ByReferencesODataCore();
