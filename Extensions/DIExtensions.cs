@@ -65,6 +65,7 @@ namespace TestEfMultipleSqlVersions.Extensions
                 var supportedAttribute = property.PropertyInfo?.GetCustomAttribute<SupportedAttribute>();
                 if (supportedAttribute is not null && !supportedAttribute.IsSupported(version))
                 {
+                    type.AddIgnored(property.Name);
                     type.RemoveProperty(property);
                 }
             }

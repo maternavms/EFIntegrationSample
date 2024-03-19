@@ -27,7 +27,6 @@ namespace TestEfMultipleSqlVersions.ArcEntities
 
         [Column("type")]
         [SupportedFrom(SqlServerVersion.Sql2019)]
-        [NotMapped]
         public string Type { get; set; }
     }
 
